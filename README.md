@@ -1,2 +1,2 @@
 # ShortenURL-for-Web
-Shorten URL for Web Version
+Shorten URL for Spring boot
