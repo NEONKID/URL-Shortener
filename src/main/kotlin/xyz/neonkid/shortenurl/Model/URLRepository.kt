@@ -1,5 +1,7 @@
 package xyz.neonkid.shortenurl.Model
 
-import org.springframework.data.repository.PagingAndSortingRepository
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
-interface URLRepository: PagingAndSortingRepository<URL, Long>
+@Repository
+interface URLRepository: JpaRepository<URL, Long>
