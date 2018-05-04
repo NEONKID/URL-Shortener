@@ -18,7 +18,7 @@ class URLServiceImpl : URLService {
     override fun selectURL(uid: Long): URL = urlRepository.findById(uid).orElseThrow { ResourceNotFoundException("URL", "id", uid) }
 
     @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    override fun addURL(url: URL): URL = urlRepository.save(url)
+    override fun addURL(url: URL): URL = if(urlRepository.existByUrl(url.origin) == 0) urlRepository.save(url) else urlRepository.findByUrl(url.origin)
 
     @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     override fun deleteURL(uid: Long): ResponseEntity<Any> {

@@ -11,7 +11,8 @@ import javax.persistence.*
  */
 
 @Entity
-@Table(name = "urls")
-data class URL(@Column(length = 1024, nullable = false) val url: String): Serializable {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO) val Id: Long? = null
+data class URL(@Column(name = "origin", length = 1024, nullable = false) val origin: String): Serializable {
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    val Id: Long? = null
 }
