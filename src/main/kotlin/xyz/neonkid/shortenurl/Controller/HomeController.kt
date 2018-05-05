@@ -10,9 +10,4 @@ import org.springframework.web.bind.annotation.RequestMethod
 class HomeController {
     @GetMapping("/")
     fun Index(): String = "index"
-
-    @GetMapping("/{id}")
-    fun Redirect(@PathVariable(value = "id") encId: String): String {
-        return "redirect"
-    }
 }

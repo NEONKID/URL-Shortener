@@ -4,7 +4,6 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.core.env.Environment
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -29,8 +28,7 @@ class URLController {
         lateinit var response: ResponseEntity<ApiResponseMessage>
         try {
             val resModel = urlDAO.addURL(url)
-            val result = "http://" + mainaddr + ":" + port + "/" +
-                    Base62.encodeToLong(resModel.Id!!)
+            val result = "http://" + mainaddr + ":" + port + "/" + Base62.encodeToLong(resModel.Id!!)
 
             message = ApiResponseMessage("Success", "URL 등록 성공", "", "", result)
             response = ResponseEntity(message, HttpStatus.OK)
@@ -43,7 +41,7 @@ class URLController {
 
     @GetMapping("/get/{id}")
     @ApiOperation(value = "실제 URL 조회", notes = "ID 값을 이용하여 실제 URL 주소를 가져옵니다.")
-    fun getURL(@PathVariable(value = "id") urlID: Long): URL = urlDAO.selectURL(urlID)
+    fun getURL(@PathVariable(value = "id") encode: String): URL = urlDAO.selectURL(Base62.decodeToLong(encode))
 
     @DeleteMapping("/del/{id}")
     @ApiOperation(value = "URL 제거", notes = "DBMS에서 URL을 제거합니다, URL을 제거하면 기존에 만들어진 URL은 더 이상 사용이 불가능합니다.")
