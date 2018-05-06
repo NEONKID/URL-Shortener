@@ -28,6 +28,7 @@ module.exports = {
     // 그 외 추가 플러그인
     // Javascript 파일을 압축하는 플러그인 외에도 엄청 많이 있음..
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
     ]
 }
