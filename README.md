@@ -16,6 +16,12 @@ This app uses the React.js frontend and the Spring Boot for kotlin backend. In t
 - IntelliJ IDEA
 - Eclipse
 
+Or, if you want to create and distribute a war file without IDE tools, you can go ahead and run the build command first.
+
+```bash
+gradle build
+```
+
 We used React.js for the front end. Detailed library versions can be found in the package.json file. After running the backend, you must build the frontend using the following command:
 
 
