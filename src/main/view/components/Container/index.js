@@ -25,7 +25,8 @@ class Container extends React.Component {
                 'http://' + value + '.com',
                 'http://' + value + '.net',
                 'http://' + value + '.io',
-                'http://' + value + '.xyz'
+                'http://' + value + '.xyz',
+                'http://' + value + '.tech'
             ]
         });
     }

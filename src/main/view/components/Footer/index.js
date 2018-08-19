@@ -1,5 +1,5 @@
 import React from 'react';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
 import { FontIcon, Paper } from 'material-ui';
 
 const homeIcon = <FontIcon className="muidocs-icon-action-home" />;

@@ -2,7 +2,7 @@ import React from 'react';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { blue500, white } from 'material-ui/styles/colors';
 import { FlatButton, IconMenu, IconButton, MenuItem, FontIcon } from 'material-ui';
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 
 class Header extends React.Component {
     constructor(props) {
