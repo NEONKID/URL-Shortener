@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.41'
+        kotlinVersion = '1.2.50'
         springBootVersion = '2.0.1.RELEASE'
         swaggerVersion = '2.7.0'
     }
@@ -22,6 +22,10 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'war'
+
+war {
+    baseName = 'url-shortener'
+}
 
 group = 'xyz.neonkid'
 version = '0.0.1-SNAPSHOT'

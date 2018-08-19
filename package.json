@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "latest",
+    "font-awesome": "^4.7.0",
     "material-ui": "latest",
     "path": "^0.12.7",
     "react": "^16.3.2",
