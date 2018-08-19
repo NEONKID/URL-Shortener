@@ -1,9 +1,11 @@
-# ShortenURL-for-Web
-[Under Development] Shorten URL for Spring boot (Kotlin)
+# URL-Shortener
+[![Build Status](https://travis-ci.org/NEONKID/URL-Shortener.svg?branch=master)](https://travis-ci.org/NEONKID/URL-Shortener)
 
 
 
 ## Overview
+
+[Under Development] Shorten URL for Spring boot (Kotlin)
 
 Unlike traditional [ShortenURL(C#)](https://github.com/NEONKID/ShortenURL), this server application was developed to serve clients from a server.
 
