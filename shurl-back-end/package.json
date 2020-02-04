@@ -1,0 +1,35 @@
+{
+    "name": "shurl-back-end",
+    "version": "1.0.0",
+    "author": "Neon K.I.D",
+    "license": "MIT",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc -w",
+        "watch-start": "concurrently --kill-others \"tsc --watch\" \"nodemon dist/index.js\"",
+        "start": "node dist/index.js"
+    },
+    "devDependencies": {
+        "@types/bluebird": "^3.5.29",
+        "@types/koa": "^2.11.0",
+        "@types/koa-logger": "^3.1.1",
+        "@types/koa-router": "^7.4.0",
+        "@types/node": "^13.7.0",
+        "@types/pg": "^7.14.1",
+        "@types/validator": "^12.0.1",
+        "@typescript-eslint/eslint-plugin": "^2.18.0",
+        "@typescript-eslint/parser": "^2.18.0",
+        "concurrently": "^5.1.0",
+        "eslint": "^6.8.0",
+        "reflect-metadata": "^0.1.13"
+    },
+    "dependencies": {
+        "koa": "^2.11.0",
+        "koa-logger": "^3.2.1",
+        "koa-router": "^8.0.6",
+        "pg": "^7.18.1",
+        "sequelize": "^5.21.3",
+        "sequelize-typescript": "^1.1.0",
+        "typescript": "^3.7.5"
+    }
+}
