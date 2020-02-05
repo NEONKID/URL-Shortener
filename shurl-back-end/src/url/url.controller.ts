@@ -7,29 +7,29 @@ import { registerSchema } from './url.schema';
 
 @Controller('url')
 export class UrlController {
-  constructor(private readonly urlService: UrlService) {}
+    constructor(private readonly urlService: UrlService) {}
 
-  @Post('register')
-  public async addUrl(@Body() register: Register): Promise<Response> {
-    try {
-      const { error, value } = registerSchema.validate(register);
+    @Post('register')
+    public async addUrl(@Body() register: Register): Promise<Response> {
+        try {
+            const { error, value } = registerSchema.validate(register);
 
-      if (error) {
-        Logger.error(error);
-        return new ResponseMessage()
-          .error(999)
-          .body('Parameter Error')
-          .build();
-      }
+            if (error) {
+                Logger.error(error);
+                return new ResponseMessage()
+                    .error(999)
+                    .body('Parameter Error')
+                    .build();
+            }
 
-      const url: UrlInfo = await this.urlService.addUrl(value);
+            const url: UrlInfo = await this.urlService.addUrl(value);
 
-      return new ResponseMessage()
-        .success()
-        .body(url)
-        .build();
-    } catch (err) {
-      Logger.error(err);
+            return new ResponseMessage()
+                .success()
+                .body(url)
+                .build();
+        } catch (err) {
+            Logger.error(err);
+        }
     }
-  }
 }

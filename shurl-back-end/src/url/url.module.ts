@@ -6,8 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { URLRepository } from './url.repositroy';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([URLRepository])],
-  providers: [UrlService],
-  controllers: [UrlController],
+    imports: [TypeOrmModule.forFeature([URLRepository])],
+    providers: [UrlService],
+    controllers: [UrlController],
 })
 export class UrlModule {}

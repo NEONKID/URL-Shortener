@@ -6,8 +6,8 @@ import { AppService } from './app.service';
 import { UrlModule } from './url/url.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), UrlModule],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [TypeOrmModule.forRoot(), UrlModule],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}

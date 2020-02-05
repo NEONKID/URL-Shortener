@@ -4,5 +4,5 @@ import * as Joi from '@hapi/joi';
 //   url: Joi.string().required(),
 // };
 export const registerSchema = Joi.object({
-  url: Joi.string().required(),
+    url: Joi.string().required(),
 });
