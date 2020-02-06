@@ -3,7 +3,6 @@ import endpoint from './endpoint.config';
 
 interface RequestSuccessResp {
     code: number;
-    data: any;
 }
 
 interface urlOfSuccessfulUrlResp extends RequestSuccessResp {
