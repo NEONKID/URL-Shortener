@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Logger } from '@nestjs/common';
+import { Controller, Post, Body, Logger, Get, Param } from '@nestjs/common';
 
 import { Response, ResponseMessage } from 'src/util/response.util';
 import { UrlService } from './url.service';
@@ -8,6 +8,16 @@ import { registerSchema } from './url.schema';
 @Controller('url')
 export class UrlController {
     constructor(private readonly urlService: UrlService) {}
+
+    @Get(':id')
+    public async getOrigin(@Param('id') id: string): Promise<string> {
+        try {
+            const origin = await this.urlService.getOrigin(id);
+            return origin;
+        } catch (err) {
+            Logger.error(err);
+        }
+    }
 
     @Post('register')
     public async addUrl(@Body() register: Register): Promise<Response> {

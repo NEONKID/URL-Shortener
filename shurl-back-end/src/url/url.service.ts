@@ -8,6 +8,11 @@ import * as base62 from 'base62';
 export class UrlService {
     constructor(private readonly urlRepository: URLRepository) {}
 
+    public async getOrigin(id: string): Promise<string> {
+        const url = await this.urlRepository.findOne(id);
+        return url.origin;
+    }
+
     public async addUrl(register: Register): Promise<UrlInfo> {
         // 일단 로우 하나 만드는 작업 (?)
         const registerUrl = this.urlRepository.create();
