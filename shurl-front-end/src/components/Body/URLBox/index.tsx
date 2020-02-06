@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 import Modal from './Modal';
 import { registerUrl } from '../../../server/urlRegister';
@@ -33,49 +32,53 @@ const URLBox = () => {
     // 사이트가 접속이 가능한 URL인지 확인하는 함수
     const isValidUrl = (url: string) => {
         const CORSFree = 'https://cors-anywhere.herokuapp.com/';
-        axios
-            .get(CORSFree + url)
-            .then(res => {
-                if (res.status === 200) return true;
-                else {
-                    setTitle('FAILED');
-                    setContent(res.status.toString());
-                    return false;
-                }
-            })
-            .catch(err => {
-                setTitle('FAILED');
-                setContent(err.message);
-                return false;
-            });
-        return false;
+        return new Promise((resolve, reject) => {
+            fetch(CORSFree + url)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
     };
 
     // Create 버튼 클릭 이벤트 함수
     const createBtnClick = () => {
         if (!isUrlString(url)) return;
-        if (!isValidUrl(url)) return;
 
-        registerUrl(url)
-            .then(res => {
-                if (res.code === Status.SUCCESS) {
-                    setTitle('SUCCESS');
-                    setContent(res.data.enUrl);
-                } else {
-                    setTitle('FAILED');
-                    setContent(res.data);
-                }
+        toggleModal();
+
+        isValidUrl(url)
+            .then((res: any) => {
+                if (res.status !== 200)
+                    throw new Error('This site not working');
+                return url;
+            })
+            .then(url => {
+                registerUrl(url)
+                    .then(res => {
+                        if (res.code !== Status.SUCCESS) {
+                            setTitle('SUCCESS');
+                            setContent(res.data.enUrl);
+                        } else throw new Error('This site not working');
+                    })
+                    .catch(err => {
+                        setTitle('FAILED');
+                        setContent(err.message);
+                    });
             })
             .catch(err => {
                 setTitle('FAILED');
                 setContent(err.message);
-            })
-            .finally(() => {
-                toggleModal();
             });
     };
 
     const toggleModal = () => {
+        if (!modalState) {
+            setTitle('');
+            setContent('');
+        }
         setModalState(!modalState);
     };
 

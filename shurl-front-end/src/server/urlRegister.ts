@@ -21,9 +21,17 @@ export const registerUrl = (
 ): Promise<urlOfSuccessfulUrlResp & urlOfFailureUrlResp> => {
     return new Promise((resolve, reject) => {
         axios
-            .post(endpoint.url.request.register, {
-                url: url
-            })
+            .post(
+                endpoint.url.request.register,
+                {
+                    url: url
+                },
+                {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    }
+                }
+            )
             .then((resp: AxiosResponse) => resolve(resp.data))
             .catch((err: AxiosError) => reject(err));
     });
