@@ -2,12 +2,12 @@
     "type": "postgres",
     "host": "localhost",
     "port": 5432,
-    "username": "postgres",
-    "password": "vhtmxm1!",
+    "username": "",
+    "password": "",
     "database": "shurl",
     "entities": ["dist/entities/*.entity.{ts,js}"],
     "logging": true,
-    "synchronize": false,
+    "synchronize": true,
     "cli": {
         "entitiesDir": "src/entities"
     }

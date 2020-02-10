@@ -1,7 +1,7 @@
 export type Register = {
-    url: string;
+    readonly url: string;
 };
 
 export type UrlInfo = {
-    enUrl: string;
+    readonly enUrl: string;
 };

@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as base62 from 'base62';
+
 import { URLRepository } from './url.repositroy';
 import { Register, UrlInfo } from './url.type';
-
-import * as base62 from 'base62';
+import { URL } from 'src/entities/url.entity';
 
 @Injectable()
 export class UrlService {
-    constructor(private readonly urlRepository: URLRepository) {}
+    constructor(
+        @InjectRepository(URL)
+        private readonly urlRepository: URLRepository,
+    ) {}
 
     public async getOrigin(id: string): Promise<string> {
         const url = await this.urlRepository.findOne(id);
