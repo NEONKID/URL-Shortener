@@ -1,13 +1,12 @@
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as Joi from '@hapi/joi';
-import * as path from 'path';
 
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 interface IEnvConfigInterface {
-    [key: string]: string;
+    [key: string]: any;
 }
 
 @Injectable()
@@ -17,13 +16,14 @@ export class ConfigService {
     constructor(filePath: string) {
         const config = dotenv.parse(fs.readFileSync(filePath));
         this.envConfig = this.validateInput(config);
+
+        console.log(this.getTypeORMConfig());
     }
 
     // Test Method
     public getTypeORMConfig(): TypeOrmModuleOptions {
-        const baseDir = path.join(__dirname, '../');
-        const entitiesPath = `${baseDir}${this.envConfig.TYPEFORM_ENTITIES}`;
-        const migrationPath = `${baseDir}${this.envConfig.TYPEORM_MIGRATIONS}`;
+        const entitiesPath = `${this.envConfig.TYPEORM_ENTITIES}`;
+        const migrationPath = `${this.envConfig.TYPEORM_MIGRATIONS}`;
         const type: any = this.envConfig.TYPEORM_CONNECTION;
 
         return {
@@ -33,13 +33,13 @@ export class ConfigService {
             password: this.envConfig.TYPEORM_PASSWORD,
             database: this.envConfig.TYPEORM_DATABASE,
             port: Number.parseInt(this.envConfig.TYPEORM_PORT, 10),
-            logging: false,
+            logging: this.envConfig.TYPEORM_LOGGING,
             entities: [entitiesPath],
             migrations: [migrationPath],
-            migrationsRun: this.envConfig.TYPEORM_MIGRATIONS_RUN === 'true',
+            migrationsRun: this.envConfig.TYPEORM_MIGRATIONS_RUN,
             cli: {
-                migrationsDir: 'src/db/migrations',
-                entitiesDir: 'src/db/entities',
+                migrationsDir: 'db/migrations',
+                entitiesDir: 'db/entities',
             },
         };
     }
@@ -49,7 +49,7 @@ export class ConfigService {
             NODE_ENV: Joi.string()
                 .valid('dev', 'test', 'prod')
                 .default('dev'),
-            HTTP_PORT: Joi.number().required(),
+            LISTEN_PORT: Joi.number().required(),
         }).unknown(true);
 
         const { error, value: validatedEnvConfig } = envVarsSchema.validate(envConfig);
