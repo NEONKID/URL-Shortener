@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as base62 from 'base62';
 
-import { URLRepository } from '../db/entities/url.repositroy';
-import { Register, UrlInfo } from '../models/url.type';
+import { URLRepository } from '../../db/entities/url.repositroy';
+import { Register, UrlInfo } from '../../models/url.type';
 import { URL } from 'src/db/entities/url.entity';
 
 @Injectable()
@@ -14,15 +14,14 @@ export class UrlService {
     ) {}
 
     public async getOrigin(id: string): Promise<string> {
-        const url = await this.urlRepository.findOne(id);
+        // Decode Shorten URL
+        const decid = base62.decode(id);
+        const url = await this.urlRepository.findOne(decid);
         return url.origin;
     }
 
     public async addUrl(register: Register): Promise<UrlInfo> {
-        // 일단 로우 하나 만드는 작업 (?)
         const registerUrl = this.urlRepository.create();
-
-        // origin 칼럼에 url 입력
         registerUrl.origin = register.url;
 
         const url = await this.urlRepository.save(registerUrl);
@@ -32,5 +31,9 @@ export class UrlService {
         };
 
         return urlInfo;
+    }
+
+    getHello() {
+        return "Hi i'm URL-Shortener URL API, Please Shortcut URL ID me";
     }
 }

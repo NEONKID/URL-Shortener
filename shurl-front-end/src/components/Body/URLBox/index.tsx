@@ -29,7 +29,7 @@ const URLBox = () => {
         setUrl(url);
     };
 
-    // 사이트가 접속이 가능한 URL인지 확인하는 함수
+    // 사이트가 접속이 가능한 URL 인지 확인하는 함수
     const isValidUrl = (url: string) => {
         const CORSFree = 'https://cors-anywhere.herokuapp.com/';
         return new Promise((resolve, reject) => {
@@ -58,7 +58,7 @@ const URLBox = () => {
             .then(url => {
                 registerUrl(url)
                     .then(res => {
-                        if (res.code !== Status.SUCCESS) {
+                        if (res.code === Status.SUCCESS) {
                             setTitle('SUCCESS');
                             setContent(res.data.enUrl);
                         } else throw new Error('This site not working');
