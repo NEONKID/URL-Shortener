@@ -1,22 +1,17 @@
 import { Controller, Post, Body, Logger, Get, Param } from '@nestjs/common';
 
 import { Response, ResponseMessage } from 'src/util/response.util';
-import { UrlService } from '../services/url.service';
-import { Register, UrlInfo } from '../models/url.type';
-import { registerSchema } from '../models/url.schema';
+import { UrlService } from '../../../services/url/url.service';
+import { Register, UrlInfo } from '../../../models/url.type';
+import { registerSchema } from '../../../models/url.schema';
 
-@Controller('url')
+@Controller()
 export class UrlController {
     constructor(private readonly urlService: UrlService) {}
 
-    @Get(':id')
-    public async getOrigin(@Param('id') id: string): Promise<string> {
-        try {
-            const origin = await this.urlService.getOrigin(id);
-            return origin;
-        } catch (err) {
-            Logger.error(err);
-        }
+    @Get()
+    public sayHello() {
+        return this.urlService.getHello();
     }
 
     @Post('register')
