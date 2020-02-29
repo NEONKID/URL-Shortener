@@ -1,4 +1,4 @@
-const SERVER = 'http://localhost:1412';
+const SERVER = process.env.REACT_APP_API_ENTRYPOINT;
 const API_PREFIX = 'api';
 
 interface Config {

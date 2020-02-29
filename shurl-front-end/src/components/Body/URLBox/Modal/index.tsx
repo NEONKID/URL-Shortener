@@ -9,16 +9,28 @@ type modProps = {
 const Modal: FunctionComponent<modProps> = props => {
     if (!props.modalState) return null;
 
+    const content: any = !props.children?.toString().startsWith('http')
+        ? '#'
+        : props.children;
+
     return (
         <div className="modal is-active">
             <div className="modal-background" onClick={props.closeModal} />
-            <div className="modal-content">
-                <div className="box">
-                    <div className="content">
-                        <h3>{props.title}</h3>
-                        {props.children}
-                    </div>
-                </div>
+            <div className="modal-card">
+                <header className="modal-card-head">
+                    <p className="modal-card-title">{props.title}</p>
+                </header>
+                <section className="modal-card-body">
+                    <a href={content}>{props.children}</a>
+                </section>
+                <footer className="modal-card-foot">
+                    <button
+                        className="button is-info"
+                        onClick={props.closeModal}
+                    >
+                        OK
+                    </button>
+                </footer>
             </div>
             <button
                 className="modal-close is-large"

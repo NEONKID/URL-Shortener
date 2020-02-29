@@ -48,11 +48,12 @@ const URLBox = () => {
         if (!isUrlString(url)) return;
 
         toggleModal();
+        setTitle('Loading...');
 
         isValidUrl(url)
             .then((res: any) => {
                 if (res.status !== 200)
-                    throw new Error('This site not working');
+                    throw new Error('This URL is not working');
                 return url;
             })
             .then(url => {
@@ -60,8 +61,12 @@ const URLBox = () => {
                     .then(res => {
                         if (res.code === Status.SUCCESS) {
                             setTitle('SUCCESS');
-                            setContent(res.data.enUrl);
-                        } else throw new Error('This site not working');
+                            setContent(
+                                process.env.REACT_APP_API_ENTRYPOINT +
+                                    '/' +
+                                    res.data.enUrl
+                            );
+                        } else throw new Error('API Server not working');
                     })
                     .catch(err => {
                         setTitle('FAILED');
@@ -82,35 +87,46 @@ const URLBox = () => {
         setModalState(!modalState);
     };
 
+    const current =
+        content === '' ? (
+            <progress className="progress is-medium is-info" max="100">
+                60%
+            </progress>
+        ) : (
+            content
+        );
+
     return (
-        <div className="box">
-            <div className="field is-grouped">
-                <p className="control is-expanded">
-                    <input
-                        className="input"
-                        type="text"
-                        placeholder="Enter URL"
-                        onChange={urlChange}
-                    />
-                </p>
-                <p className="control">
-                    <a
-                        className="button is-info"
-                        onClick={() => {
-                            createBtnClick();
-                        }}
-                    >
-                        Create
-                    </a>
-                </p>
+        <div className="column is-6 is-offset-3">
+            <div className="box">
+                <div className="field is-grouped">
+                    <p className="control is-expanded">
+                        <input
+                            className="input"
+                            type="text"
+                            placeholder="Enter URL"
+                            onChange={urlChange}
+                        />
+                    </p>
+                    <p className="control">
+                        <a
+                            className="button is-info"
+                            onClick={() => {
+                                createBtnClick();
+                            }}
+                        >
+                            Create
+                        </a>
+                    </p>
+                </div>
+                <Modal
+                    closeModal={toggleModal}
+                    modalState={modalState}
+                    title={title}
+                >
+                    {current}
+                </Modal>
             </div>
-            <Modal
-                closeModal={toggleModal}
-                modalState={modalState}
-                title={title}
-            >
-                {content}
-            </Modal>
         </div>
     );
 };
