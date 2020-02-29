@@ -15,7 +15,6 @@ export class AppController {
     @Redirect(process.env.MAIN_URL, 301)
     getHello() {}
 
-    // 재구현 필요함
     @Get(':id')
     @Redirect(process.env.MAIN_URL, 302)
     public async redirectSite(@Param('id') id: string) {
