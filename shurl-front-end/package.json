@@ -55,10 +55,13 @@
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
+        "@types/chai": "^4.2.9",
+        "@types/jsdom": "^16.1.0",
         "@types/node-sass": "^4.11.0",
         "@typescript-eslint/eslint-plugin": "^2.19.0",
         "@typescript-eslint/parser": "^2.19.0",
         "babel-eslint": "^10.0.3",
+        "chai": "^4.2.0",
         "eslint-config-prettier": "^6.10.0",
         "eslint-config-react-app": "^5.2.0",
         "eslint-plugin-flowtype": "3.x",
@@ -66,6 +69,7 @@
         "eslint-plugin-jsx-a11y": "6.x",
         "eslint-plugin-react": "^7.18.3",
         "eslint-plugin-react-hooks": "1.x",
+        "jsdom": "^16.2.0",
         "prop-types": "^15.7.2"
     }
 }
