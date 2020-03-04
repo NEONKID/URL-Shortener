@@ -14,7 +14,7 @@ const Modal: FunctionComponent<modProps> = props => {
         : props.children;
 
     return (
-        <div className="modal is-active">
+        <div role="modal" className="modal is-active">
             <div className="modal-background" onClick={props.closeModal} />
             <div className="modal-card">
                 <header className="modal-card-head">
