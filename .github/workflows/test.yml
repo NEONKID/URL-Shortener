@@ -12,15 +12,15 @@ jobs:
             matrix:
                 node: [12.x]
                 os: [ubuntu-latest]
+
         steps:
             - name: checkout
-            - uses: actions/checkout@v1
+              uses: actions/checkout@v1
 
             - name: Set up Node.js ${{ matrix.node }}
               uses: actions/setup-node@v1
               with:
                   node-version: ${{ matrix.node }}
-
             - name: Front-end Test
               run: |
                   cd shurl-front-end
