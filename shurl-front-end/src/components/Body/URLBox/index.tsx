@@ -102,7 +102,7 @@ const URLBox = () => {
                 <div className="field is-grouped">
                     <p className="control is-expanded">
                         <input
-                            data-testid="url"
+                            aria-label="url"
                             className="input"
                             type="text"
                             placeholder="Enter URL"
@@ -110,13 +110,7 @@ const URLBox = () => {
                         />
                     </p>
                     <p className="control">
-                        <a
-                            data-testid="button"
-                            className="button is-info"
-                            onClick={() => {
-                                createBtnClick();
-                            }}
-                        >
+                        <a className="button is-info" onClick={createBtnClick}>
                             Create
                         </a>
                     </p>

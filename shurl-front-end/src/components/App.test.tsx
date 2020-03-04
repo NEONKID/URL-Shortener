@@ -1,35 +1,30 @@
 import React from 'react';
+import { render, fireEvent, wait } from '@testing-library/react';
+import axiosMock from 'axios';
+
 import App from './App';
+import URLBox from './Body/URLBox';
 
-import { act } from 'react-dom/test-utils';
-import { render, unmountComponentAtNode } from 'react-dom';
+jest.mock('axios');
 
-let container: HTMLElement;
-
-beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
+test('Rendering', () => {
+    const { getByPlaceholderText } = render(<App />);
+    expect(getByPlaceholderText('Enter URL')).toBeVisible();
 });
 
-afterEach(() => {
-    unmountComponentAtNode(container);
-    container.remove();
-});
+test('Input URL', async () => {
+    const utils = render(<URLBox />);
+    const input = utils.getByLabelText('url') as HTMLInputElement;
 
-test('can render and create URL', () => {
-    const onClick = jest.fn();
+    fireEvent.change(input, { target: { value: 'https://neonkid.xyz' } });
+    expect(input.value).toBe('https://neonkid.xyz');
 
-    act(() => {
-        render(<App />, container);
-    });
+    const createBtn = utils.getByText('Create');
+    expect(createBtn).toBeVisible();
 
-    const button = container.querySelector('[data-testid=button]');
-    expect(button?.innerHTML).toBe('Create');
+    fireEvent.click(createBtn, { button: 0 });
 
-    act(() => {
-        button?.dispatchEvent(new MouseEvent('click'));
-    });
+    await wait(() => utils.getByText('FAILED'));
 
-    const modal = container.querySelector('[data-testid=modal]');
-    expect(modal).not.toBeInTheDocument();
+    expect(axiosMock.post).toBeCalledTimes(1);
 });
