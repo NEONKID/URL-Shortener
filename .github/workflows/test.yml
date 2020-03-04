@@ -26,4 +26,4 @@ jobs:
                   cd shurl-front-end
                   npm install
                   npm run build:css
-                  npm run test
+                  npm run test:ci
