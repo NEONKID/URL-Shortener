@@ -24,4 +24,5 @@ jobs:
             - name: Front-end Test
               run: |
                   cd shurl-front-end
+                  npm install
                   npm run test
