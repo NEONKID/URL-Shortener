@@ -1,4 +1,4 @@
-name: URL-Shortener Test
+name: URL-Shortener Build and Test
 
 on:
     pull_request:
@@ -37,6 +37,7 @@ jobs:
               working-directory: ./shurl-back-end
               run: |
                   npm install
+                  npm run build
                   npm run test:e2e
 
             - name: Front-end Test
