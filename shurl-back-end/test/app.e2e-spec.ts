@@ -27,10 +27,14 @@ afterAll(async done => {
 });
 
 describe('GET /', () => {
-    it('Main Endpoint test', () => {
+    it('Main Endpoint test', done => {
         return request(app.getHttpServer())
             .get('/')
-            .expect(301);
+            .expect(301)
+            .end((err, res) => {
+                if (err) return done(err);
+                return done();
+            });
     });
 });
 
