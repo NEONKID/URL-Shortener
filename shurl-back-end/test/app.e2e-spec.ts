@@ -5,28 +5,21 @@ import * as request from 'supertest';
 import { AppModule } from '../src/modules/app.module';
 import { URLRepository } from '../src/db/entities/url.repositroy';
 
-let app: INestApplication;
-let repo: URLRepository;
+describe('URL-Shortener Test', () => {
+    let app: INestApplication;
+    let repo: URLRepository;
 
-beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-        imports: [AppModule],
-    }).compile();
+    beforeAll(async () => {
+        const moduleFixture: TestingModule = await Test.createTestingModule({
+            imports: [AppModule],
+        }).compile();
 
-    app = moduleFixture.createNestApplication();
-    repo = moduleFixture.get<URLRepository>(URLRepository);
+        app = moduleFixture.createNestApplication();
+        repo = moduleFixture.get<URLRepository>(URLRepository);
 
-    await app.init();
-});
+        await app.init();
+    });
 
-afterAll(async done => {
-    await repo.query(`DROP TABLE url;`);
-    await app.close();
-
-    done();
-});
-
-describe('GET /', () => {
     it('Main Endpoint test', done => {
         return request(app.getHttpServer())
             .get('/')
@@ -36,9 +29,7 @@ describe('GET /', () => {
                 return done();
             });
     });
-});
 
-describe('GET, POST /api/url', () => {
     it('URL Endpoint test', done => {
         return request(app.getHttpServer())
             .get('/api/url')
@@ -61,9 +52,7 @@ describe('GET, POST /api/url', () => {
                 done();
             });
     });
-});
 
-describe('Shortcut Endpoint Test', () => {
     it('URL Redirect Test', done => {
         return request(app.getHttpServer())
             .get('/1')
@@ -72,5 +61,12 @@ describe('Shortcut Endpoint Test', () => {
                 if (err) return done(err);
                 done();
             });
+    });
+
+    afterAll(async done => {
+        await repo.query(`DROP TABLE url;`);
+        await app.close();
+
+        done();
     });
 });
