@@ -21,16 +21,14 @@ jobs:
               uses: actions/setup-node@v1
               with:
                 node-version: ${{ matrix.node }}
-
             - name: Back-end Test
                 run: |
                     cd shurl-back-end
                     npm install
                     npm run test:e2e
-
             - name: Front-end Test
-              run: |
-                  cd shurl-front-end
-                  npm install
-                  npm run build:css
-                  npm run test:ci
+                run: |
+                    cd shurl-front-end
+                    npm install
+                    npm run build:css
+                    npm run test:ci
