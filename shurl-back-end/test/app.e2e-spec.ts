@@ -14,17 +14,17 @@ beforeAll(async () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    repo = moduleFixture.get('URLRepository');
+    repo = moduleFixture.get<URLRepository>(URLRepository);
 
     await app.init();
 });
 
-// afterAll(async done => {
-//     await repo.query(`DROP TABLE url;`);
-//     await app.close();
+afterAll(async done => {
+    await repo.query(`DROP TABLE url;`);
+    await app.close();
 
-//     done();
-// });
+    done();
+});
 
 describe('GET /', () => {
     it('Main Endpoint test', done => {
