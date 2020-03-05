@@ -36,13 +36,15 @@ jobs:
             - name: Back-end Test
               working-directory: ./shurl-back-end
               run: |
-                  npm install
-                  npm run build
-                  npm run test:e2e
+                  yarn install --frozen-lockfile
+                  yarn build
+                  yarn test:e2e --verbose
 
             - name: Front-end Test
               working-directory: ./shurl-front-end
               run: |
-                  npm install
-                  npm run build:css
-                  npm run test:ci
+                  yarn install
+                  yarn build:css
+                  yarn test
+              env:
+                  CI: true
