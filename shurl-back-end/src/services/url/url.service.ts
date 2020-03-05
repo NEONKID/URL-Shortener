@@ -4,7 +4,7 @@ import * as base62 from 'base62';
 
 import { URLRepository } from '../../db/entities/url.repositroy';
 import { Register, UrlInfo } from '../../models/url.type';
-import { URL } from 'src/db/entities/url.entity';
+import { URL } from '../../db/entities/url.entity';
 
 @Injectable()
 export class UrlService {

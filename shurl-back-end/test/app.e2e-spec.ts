@@ -1,23 +1,72 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
+
 import { AppModule } from '../src/modules/app.module';
+import { URLRepository } from '../src/db/entities/url.repositroy';
 
-describe('AppController (e2e)', () => {
-    let app: INestApplication;
+let app: INestApplication;
+let repo: URLRepository;
 
-    beforeEach(async () => {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-            imports: [AppModule],
-        }).compile();
+beforeAll(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+        imports: [AppModule],
+    }).compile();
 
-        app = moduleFixture.createNestApplication();
-        await app.init();
-    });
+    app = moduleFixture.createNestApplication();
+    repo = moduleFixture.get('URLRepository');
 
-    it('/ (GET)', () => {
+    await app.init();
+});
+
+afterAll(async done => {
+    await repo.query(`DROP TABLE url;`);
+    await app.close();
+
+    done();
+});
+
+describe('GET /', () => {
+    it('Main Endpoint test', () => {
         return request(app.getHttpServer())
             .get('/')
-            .expect(200);
+            .expect(301);
+    });
+});
+
+describe('GET, POST /api/url', () => {
+    it('URL Endpoint test', done => {
+        return request(app.getHttpServer())
+            .get('/api/url')
+            .expect(200)
+            .end((err, res) => {
+                if (err) return done(err);
+                expect(res.text).toBe("Hi i'm URL-Shortener URL API, Please Shortcut URL ID me");
+                return done();
+            });
+    });
+
+    it('URL Register Test', done => {
+        return request(app.getHttpServer())
+            .post('/api/url/register')
+            .send({ url: 'https://neonkid.xyz' })
+            .expect('Content-Type', /json/)
+            .expect(201)
+            .end((err, res) => {
+                if (err) return done(err);
+                done();
+            });
+    });
+});
+
+describe('Shortcut Endpoint Test', () => {
+    it('URL Redirect Test', done => {
+        return request(app.getHttpServer())
+            .get('/1')
+            .expect(302)
+            .end((err, res) => {
+                if (err) return done(err);
+                done();
+            });
     });
 });
