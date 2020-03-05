@@ -37,7 +37,6 @@ jobs:
               working-directory: ./shurl-back-end
               run: |
                   npm install
-                  npm list --depth 0
                   npm run build
                   npm run test:e2e
 
