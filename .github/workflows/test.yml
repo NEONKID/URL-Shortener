@@ -43,7 +43,7 @@ jobs:
             - name: Front-end Test
               working-directory: ./shurl-front-end
               run: |
-                  yarn install
+                  yarn install --frozen-lockfile
                   yarn build:css
                   yarn test
               env:
