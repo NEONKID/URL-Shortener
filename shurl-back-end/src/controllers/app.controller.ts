@@ -2,8 +2,8 @@ import { Controller, Get, Param, Redirect } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 
 import { AppService } from '../services/app.service';
-import { dotEnvOptions } from 'src/config/dotenv.options';
-import { UrlService } from 'src/services/url/url.service';
+import { dotEnvOptions } from '../config/dotenv.options';
+import { UrlService } from '../services/url/url.service';
 
 dotenv.config(dotEnvOptions);
 

@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Logger, Get, Param } from '@nestjs/common';
 
-import { Response, ResponseMessage } from 'src/util/response.util';
+import { Response, ResponseMessage } from '../../../util/response.util';
 import { UrlService } from '../../../services/url/url.service';
 import { Register, UrlInfo } from '../../../models/url.type';
 import { registerSchema } from '../../../models/url.schema';

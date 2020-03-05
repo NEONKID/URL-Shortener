@@ -13,6 +13,17 @@ jobs:
                 node: [12.x]
                 os: [ubuntu-latest]
 
+        services:
+            postgres:
+                image: postgres:10.8
+                env:
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: vhtmxm1!
+                    POSTGRES_DB: shurl
+                ports:
+                    - 5432:5432
+                options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
         steps:
             - name: checkout
               uses: actions/checkout@v1
@@ -21,9 +32,19 @@ jobs:
               uses: actions/setup-node@v1
               with:
                   node-version: ${{ matrix.node }}
-            - name: Front-end Test
+
+            - name: Back-end Test
+              working-directory: ./shurl-back-end
               run: |
-                  cd shurl-front-end
-                  npm install
-                  npm run build:css
-                  npm run test:ci
+                  yarn install --frozen-lockfile
+                  yarn build
+                  yarn test:e2e --verbose
+
+            - name: Front-end Test
+              working-directory: ./shurl-front-end
+              run: |
+                  yarn install --frozen-lockfile
+                  yarn build:css
+                  yarn test
+              env:
+                  CI: true
