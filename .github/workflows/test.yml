@@ -1,4 +1,4 @@
-name: URL-Shortener Build and Test
+name: URL-Shortener Test
 
 on:
     pull_request:
@@ -20,7 +20,14 @@ jobs:
             - name: Set up Node.js ${{ matrix.node }}
               uses: actions/setup-node@v1
               with:
-                  node-version: ${{ matrix.node }}
+                node-version: ${{ matrix.node }}
+
+            - name: Back-end Test
+                run: |
+                    cd shurl-back-end
+                    npm install
+                    npm run test:e2e
+
             - name: Front-end Test
               run: |
                   cd shurl-front-end
