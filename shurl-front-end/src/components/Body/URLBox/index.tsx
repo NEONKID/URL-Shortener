@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Translation, useTranslation } from 'react-i18next';
 
 import Modal from './Modal';
 import { registerUrl } from '../../../server/urlRegister';
@@ -12,6 +13,8 @@ const URLBox = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [url, setUrl] = useState('');
+
+    const { t } = useTranslation();
 
     // URL 인지 확인하는 함수
     const isUrlString = (url: string) => {
@@ -52,29 +55,28 @@ const URLBox = () => {
 
         isValidUrl(url)
             .then((res: any) => {
-                if (res.status !== 200)
-                    throw new Error('This URL is not working');
+                if (res.status !== 200) throw new Error(t('invalidURL'));
                 return url;
             })
             .then(url => {
                 registerUrl(url)
                     .then(res => {
                         if (res.code === Status.SUCCESS) {
-                            setTitle('SUCCESS');
+                            setTitle(t('success'));
                             setContent(
                                 process.env.REACT_APP_API_ENTRYPOINT +
                                     '/' +
                                     res.data.enUrl
                             );
-                        } else throw new Error('API Server not working');
+                        } else throw new Error(t('onErrorAPIServer'));
                     })
                     .catch(err => {
-                        setTitle('FAILED');
+                        setTitle(t('failed'));
                         setContent(err.message);
                     });
             })
             .catch(err => {
-                setTitle('FAILED');
+                setTitle(t('failed'));
                 setContent(err.message);
             });
     };
@@ -101,18 +103,31 @@ const URLBox = () => {
             <div className="box">
                 <div className="field is-grouped">
                     <p className="control is-expanded">
-                        <input
-                            aria-label="url"
-                            className="input"
-                            type="text"
-                            placeholder="Enter URL"
-                            onChange={urlChange}
-                        />
+                        <Translation>
+                            {(t, ready) => (
+                                <input
+                                    aria-label="url"
+                                    className="input"
+                                    type="text"
+                                    placeholder={
+                                        ready ? t('inputURL') : 'default'
+                                    }
+                                    onChange={urlChange}
+                                />
+                            )}
+                        </Translation>
                     </p>
                     <p className="control">
-                        <a className="button is-info" onClick={createBtnClick}>
-                            Create
-                        </a>
+                        <Translation>
+                            {(t, ready) => (
+                                <a
+                                    className="button is-info"
+                                    onClick={createBtnClick}
+                                >
+                                    {ready ? t('createBtn') : 'default'}
+                                </a>
+                            )}
+                        </Translation>
                     </p>
                 </div>
                 <Modal

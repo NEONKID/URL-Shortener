@@ -5,6 +5,8 @@ import axiosMock from 'axios';
 import App from './App';
 import URLBox from './Body/URLBox';
 
+import '../locale/i18n';
+
 jest.mock('axios');
 
 test('Rendering', () => {

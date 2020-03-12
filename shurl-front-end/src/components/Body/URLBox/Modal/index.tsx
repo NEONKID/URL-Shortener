@@ -1,4 +1,5 @@
 import React, { MouseEventHandler, FunctionComponent } from 'react';
+import { Translation } from 'react-i18next';
 
 type modProps = {
     closeModal: MouseEventHandler;
@@ -24,12 +25,16 @@ const Modal: FunctionComponent<modProps> = props => {
                     <a href={content}>{props.children}</a>
                 </section>
                 <footer className="modal-card-foot">
-                    <button
-                        className="button is-info"
-                        onClick={props.closeModal}
-                    >
-                        OK
-                    </button>
+                    <Translation>
+                        {(t, ready) => (
+                            <button
+                                className="button is-info"
+                                onClick={props.closeModal}
+                            >
+                                {ready ? t('okBtn') : 'default'}
+                            </button>
+                        )}
+                    </Translation>
                 </footer>
             </div>
             <button

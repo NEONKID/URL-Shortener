@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import App from './components/App';
 
 import 'react-bulma-components/dist/react-bulma-components.min.css';
+import './locale/i18n';
 
 import * as serviceWorker from './serviceWorker';
 
