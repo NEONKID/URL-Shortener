@@ -1,8 +1,5 @@
 /* eslint-disable */
 
-// ESLint에서 anchor에 대한 처리를 고민해야 함.
-// a 태그에서 URI를 사용하지 않을 것인데, 계속 Warning 발생
-
 import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
