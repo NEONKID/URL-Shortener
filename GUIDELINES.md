@@ -137,7 +137,7 @@ $ yarn start
 
 This application provides a separate admin page to provide a better admin experience.
 
-The admin page is contained in the ```shurl-admin``` folder and must be run in Python. If you want to configure the admin page, please refer to this document.
+The admin page is contained in the ```shurl-admin``` folder and must be run in Python. If you want to configure the admin page, please refer to this [document](Appendix.md).
 
 <br />
 
