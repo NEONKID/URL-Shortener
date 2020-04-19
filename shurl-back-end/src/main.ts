@@ -1,4 +1,6 @@
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 
@@ -30,6 +32,16 @@ async function bootstrap() {
         origin: process.env.MAIN_URL,
         methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
     });
+
+    const options = new DocumentBuilder()
+        .setTitle('URL-Shortener')
+        .setDescription('This page is URL-Shortener API Documentation')
+        .setVersion('1.0')
+        .addTag('cats')
+        .build();
+    const document = SwaggerModule.createDocument(app, options);
+
+    SwaggerModule.setup('doc', app, document);
 
     await app.listen(process.env.LISTEN_PORT || 1412);
 }

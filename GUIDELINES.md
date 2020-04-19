@@ -131,3 +131,8 @@ $ cd shurl-front-end
 $ yarn start
 ```
 
+
+
+## Appendix
+
+If you want to view the API documentation for the backend server, you can view the API documentation by running the backend server and accessing the ```doc``` endpoint.
