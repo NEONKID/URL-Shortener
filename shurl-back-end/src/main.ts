@@ -8,14 +8,23 @@ import { dotEnvOptions } from './config/dotenv.options';
 dotenv.config(dotEnvOptions);
 
 async function bootstrap() {
-    const httpsOptions = {
-        key: fs.readFileSync(process.env.SSL_KEY_FILE),
-        cert: fs.readFileSync(process.env.SSL_CERT_FILE),
-    };
+    let httpsOptions = undefined;
 
-    const app = await NestFactory.create(AppModule, {
-        httpsOptions,
-    });
+    try {
+        httpsOptions = {
+            key: fs.readFileSync(process.env.SSL_KEY_FILE),
+            cert: fs.readFileSync(process.env.SSL_CERT_FILE),
+        };
+
+        console.log('This App SSL enabled');
+    } catch (err) {
+        console.log('This App SSL not enabled');
+    }
+
+    const app =
+        httpsOptions === undefined
+            ? await NestFactory.create(AppModule, {})
+            : await NestFactory.create(AppModule, { httpsOptions });
 
     app.enableCors({
         origin: process.env.MAIN_URL,
