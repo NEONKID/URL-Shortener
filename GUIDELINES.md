@@ -135,4 +135,10 @@ $ yarn start
 
 ## Appendix
 
-If you want to view the API documentation for the backend server, you can view the API documentation by running the backend server and accessing the ```doc``` endpoint.
+This application provides a separate admin page to provide a better admin experience.
+
+The admin page is contained in the ```shurl-admin``` folder and must be run in Python. If you want to configure the admin page, please refer to this [document](Appendix.md).
+
+<br />
+
+If you want to view the API documentation for the Back-end server, you can view the API documentation by running the backend server and accessing the ```doc``` endpoint.
