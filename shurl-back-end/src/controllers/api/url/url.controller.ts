@@ -1,4 +1,5 @@
 import { Controller, Post, Body, Logger, Get, Param } from '@nestjs/common';
+import { ApiBody, ApiCreatedResponse, ApiResponse } from '@nestjs/swagger';
 
 import { Response, ResponseMessage } from '../../../util/response.util';
 import { UrlService } from '../../../services/url/url.service';
@@ -9,11 +10,14 @@ import { registerSchema } from '../../../models/url.schema';
 export class UrlController {
     constructor(private readonly urlService: UrlService) {}
 
+    @ApiResponse({ status: 200, description: 'URL API MAIN ENDPOINT' })
     @Get()
     public sayHello() {
         return this.urlService.getHello();
     }
 
+    @ApiBody({ type: Register })
+    @ApiCreatedResponse({ description: 'The Url Register successfully created' })
     @Post('register')
     public async addUrl(@Body() register: Register): Promise<Response> {
         try {

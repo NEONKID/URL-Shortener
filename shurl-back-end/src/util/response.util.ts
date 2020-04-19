@@ -1,42 +1,50 @@
-export class Response {
-  data: any | any[];
-  code: number;
+import { ApiProperty } from '@nestjs/swagger';
 
-  constructor(message: ResponseMessage) {
-    this.data = message.Data;
-    this.code = message.Code;
-  }
+export class Response {
+    @ApiProperty()
+    data: any | any[];
+
+    @ApiProperty()
+    code: number;
+
+    constructor(message: ResponseMessage) {
+        this.data = message.Data;
+        this.code = message.Code;
+    }
 }
 
 export class ResponseMessage {
-  private data: any | any[]; // RESPONSE DATA
-  private code: number; // RESPONSE CODE
+    @ApiProperty()
+    private data: any | any[]; // RESPONSE DATA
 
-  public success(): ResponseMessage {
-    this.code = 1;
-    return this;
-  }
+    @ApiProperty()
+    private code: number; // RESPONSE CODE
 
-  public error(code: number, message: string = 'Error'): ResponseMessage {
-    this.code = code;
-    this.data = message;
-    return this;
-  }
+    public success(): ResponseMessage {
+        this.code = 1;
+        return this;
+    }
 
-  public body(data: any | any[] = ''): ResponseMessage {
-    this.data = data;
-    return this;
-  }
+    public error(code: number, message: string = 'Error'): ResponseMessage {
+        this.code = code;
+        this.data = message;
+        return this;
+    }
 
-  get Data(): any | any[] {
-    return this.data;
-  }
+    public body(data: any | any[] = ''): ResponseMessage {
+        this.data = data;
+        return this;
+    }
 
-  get Code(): number {
-    return this.code;
-  }
+    get Data(): any | any[] {
+        return this.data;
+    }
 
-  public build(): Response {
-    return new Response(this);
-  }
+    get Code(): number {
+        return this.code;
+    }
+
+    public build(): Response {
+        return new Response(this);
+    }
 }
