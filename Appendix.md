@@ -24,6 +24,7 @@ This guide is a guideline for using URL-Shortener's admin page.
    ```
    $ cd shurl-admin
    $ pip install -r requirements.txt
+   $ pip install https://github.com/darklow/django-suit/tarball/v2
    ```
    
 3. **Synchronize Admin Page and URL-Shortener DB**
