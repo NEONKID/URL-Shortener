@@ -24,6 +24,7 @@
    ```
    $ cd shurl-admin
    $ pip install -r requirements.txt
+   $ pip install https://github.com/darklow/django-suit/tarball/v2
    ```
    
 3. **Admin Page와 URL-Shortener DB를 연동**
